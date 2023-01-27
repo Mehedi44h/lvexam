@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +23,18 @@ Route::post('/register', [AuthController::class, 'studentRegister'])->name('stud
 
 Route::get('/', [AuthController::class, 'loadLogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
-// Route::get('/login', function (){
-//     return redirect('/');
-// });
+Route::get('/login', function (){
+    return redirect('/');
+});
 
 Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/dashboard', [AuthController::class, 'dashboard']);
-Route::get('/admin/dashboard', [AuthController::class, 'admin_dashboard']);
+
+// admin middleware group
+Route::group(['middleware'=>['web','checkAdmin']],function(){
+    Route::get('/admin/dashboard', [AuthController::class, 'admin_dashboard']);
+    
+});
+//  StudentMiddleware group
+Route::group(['middleware' => ['web', 'checkStudent']], function () {
+    Route::get('/dashboard', [AuthController::class, 'dashboard']);
+});

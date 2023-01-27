@@ -32,6 +32,12 @@ class AuthController extends Controller
     }
 
     public function loadLogin(){
+        if(Auth::user()&& Auth::user()->is_admin==1){
+            return redirect('/admin/dashboard');
+        }
+        elseif (Auth::user() && Auth::user()->is_admin ==0 ) {
+            return redirect('/dashboard');
+        }
         return view('login');
     }
 
