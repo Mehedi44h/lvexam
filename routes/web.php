@@ -28,6 +28,12 @@ Route::get('/login', function (){
 });
 
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/forget_pass', [AuthController::class, 'forgetpassLoading']);
+Route::post('/forget_pass', [AuthController::class, 'forgetpassword'])->name('forgetpassword');
+Route::get('/reset-password', [AuthController::class, 'resetpassLoad']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
+
+
 
 // admin middleware group
 Route::group(['middleware'=>['web','checkAdmin']],function(){
