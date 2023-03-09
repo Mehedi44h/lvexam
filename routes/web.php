@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/register',[AuthController::class,'loadRegister']);
+Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'studentRegister'])->name('studentRegister');
 
 Route::get('/', [AuthController::class, 'loadLogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
-Route::get('/login', function (){
+Route::get('/login', function () {
     return redirect('/');
 });
 
@@ -36,9 +36,8 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 
 // admin middleware group
-Route::group(['middleware'=>['web','checkAdmin']],function(){
+Route::group(['middleware' => ['web', 'checkAdmin']], function () {
     Route::get('/admin/dashboard', [AuthController::class, 'admin_dashboard']);
-    
 });
 //  StudentMiddleware group
 Route::group(['middleware' => ['web', 'checkStudent']], function () {
