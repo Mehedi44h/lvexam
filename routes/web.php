@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,11 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // admin middleware group
 Route::group(['middleware' => ['web', 'checkAdmin']], function () {
     Route::get('/admin/dashboard', [AuthController::class, 'admin_dashboard']);
+    
+    // subject route 
+    Route::post('/add-subject', [AdminController::class, 'addSubject'])->name('addSubject');
+
+    
 });
 //  StudentMiddleware group
 Route::group(['middleware' => ['web', 'checkStudent']], function () {

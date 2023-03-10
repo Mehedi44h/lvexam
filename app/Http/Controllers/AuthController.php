@@ -15,6 +15,7 @@ use App\Mail\passResetMail;
 
 // use Illuminate\Support\Facades\Mail as FacadesMail;
 use App\Models\PasswordReset;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class AuthController extends Controller
@@ -77,8 +78,10 @@ class AuthController extends Controller
         return view('student.dashboard');
     }
     public function admin_dashboard()
+    
     {
-        return view('admin.dashboard');
+        $subject=Subject::all();
+        return view('admin.dashboard',compact('subject'));
     }
 
     public function logout(Request $request)
